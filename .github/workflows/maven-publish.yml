@@ -21,8 +21,6 @@ jobs:
       - name: Test result
         id: test-result
         run: echo "Test result = ${{ steps.test-result.outputs.test-result }}"
-        outputs:
-          test-result: ${{ job.status }}
 
       - name: Build Docker image
         uses: docker/build-push-action@v2
