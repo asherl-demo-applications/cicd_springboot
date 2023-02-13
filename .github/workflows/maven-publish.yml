@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build project with Maven
-        uses: docker://maven:3.6.3-jdk-17
+        uses: docker://maven:3.8.7-eclipse-temurin-17-alpine
         with:
           args: mvn clean verify
 
