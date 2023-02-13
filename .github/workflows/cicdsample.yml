@@ -31,7 +31,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: asherlab/cicd-armory:green
+          tags: asherlab/cicd-armory:blue
 
       - name: Armory CD-as-a-Service Deployment
         id: deploy

@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         #- image:  demoimages/bluegreen:v4 #v5, v4, v3
-        - image: asherlab/cicd-armory:green
+        - image: asherlab/cicd-armory:blue
           imagePullPolicy: Always
           name: cdaas-sample-app
           resources:
