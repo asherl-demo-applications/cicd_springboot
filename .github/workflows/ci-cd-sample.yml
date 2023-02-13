@@ -30,9 +30,15 @@ jobs:
         if: steps.test-result.outputs.test-result == 'success'
         with:
           push: true
-          tags: repository-name/image-name:${{ env.TAG_NAME }}
+          tags: asherlab/cicd-armory:${{ env.TAG_NAME }}
 
       - name: Set image tag
         run: echo "::set-env name=TAG_NAME::${{ env.TAG_NAME }}"
         env:
           TAG_NAME: ${{ env.GITHUB_SHA }}
+
+      - name: Push to Docker Hub
+        uses: docker/push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
