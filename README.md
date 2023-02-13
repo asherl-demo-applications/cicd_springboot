@@ -1,4 +1,4 @@
-# CICD Demo using Github Actions and Armory CDaaS on K8s Cluster (Blue/Green Deployment)
+# CICD Demo using Github Actions and Armory CDaaS on K8s Cluster (Blue/Green Deployment) - Spring Boot Java App
 
 There are two ways to trigger a deployment with Armory CDaaS:
 
@@ -79,3 +79,8 @@ jobs:
           path-to-file: "<path-to-deployment-file>"
           waitForDeployment: <true-or-false>``
 ```
+
+### Screenshots
+
+![Armory Console](/images/1.PNG)
+![Deployed App](/images/2.PNG)
