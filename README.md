@@ -33,13 +33,13 @@ Copy code
 
 ### Create a template:
 
-Use this to create a canary deployment strategy template;
+Use this to create a canary deployment strategy template:
 
-```bash
-armory template kubernetes canary > canary.yaml
-```
+Copy code
 
-But for us, we will going to use the tutorial in this repo to perform blue green deployments: https://github.com/armory/docs-cdaas-sample/blob/main/deploy.yml
+`armory template kubernetes canary > canary.yaml`
+
+But for us, we will going to use the tutorial in this repo to perform blue green deployments: [https://github.com/armory/docs-cdaas-sample/blob/main/deploy.yml](https://github.com/armory/docs-cdaas-sample/blob/main/deploy.yml)
 
 ### Start the Deployment
 
@@ -51,4 +51,31 @@ Copy code
 
 ## Via Github Actions
 
-Details on deploying via Github Actions will be added here.
+Configure the action by creating a file in the `.github/workflows` directory with the following content format:
+
+Copy code
+
+```
+name: <descriptive-name> # This name appears in the Actions screen in the GitHub UI.
+
+on:
+  push: # What triggers a deployment. For example, `push`.
+    branches:
+      - <branchName> # What branch triggers a deployment. For example, `main`.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Armory CD-as-a-Service Deployment
+        id: deploy
+        uses: armory/cli-deploy-action@main
+        with:
+          clientId: "${{ secrets.CDAAS_CLIENT_ID }}"
+          clientSecret: "${{ secrets.CDAAS_CLIENT_SECRET }}"
+          path-to-file: "<path-to-deployment-file>"
+          waitForDeployment: <true-or-false>``
+```
