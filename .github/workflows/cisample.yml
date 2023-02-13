@@ -1,4 +1,4 @@
-name: CI for Spring Boot
+name: CI CD for Spring Boot
 
 on:
   push:
@@ -31,4 +31,13 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: asherlab/cicd-armory:pink
+          tags: asherlab/cicd-armory:green
+
+      - name: Armory CD-as-a-Service Deployment
+        id: deploy
+        uses: armory/cli-deploy-action@main
+        with:
+          clientId: ${{ secrets.ARMORY_CLIENT_ID }}
+          clientSecret: ${{ secrets.ARMORY_CLIENT_SECRET }}
+          path-to-file: "/armory/blue-green.yaml"
+          waitForDeployment: false
