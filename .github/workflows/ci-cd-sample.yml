@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: "true"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,12 +29,10 @@ jobs:
         uses: docker/build-push-action@v2
         if: steps.test-result.outputs.test-result == 'success'
         with:
-          env: local.env
           push: true
           tags: repository-name/image-name:${{ env.TAG_NAME }}
 
       - name: Set image tag
         run: echo "::set-env name=TAG_NAME::${{ env.TAG_NAME }}"
         env:
-          env: local.env
           TAG_NAME: ${{ env.GITHUB_SHA }}
