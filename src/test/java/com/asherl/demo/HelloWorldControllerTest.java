@@ -1,4 +1,4 @@
-package com.asherl.demo.test;
+package com.asherl.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
