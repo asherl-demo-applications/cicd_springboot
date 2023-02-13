@@ -8,6 +8,7 @@ public class HelloWorldController {
 
     @GetMapping("/")
     public String sayHello() {
-        return "Hello, World! ";
+        return "<span style='color:" + "pink"
+                + "; font-size: 36px; text-align: center; display: flex; justify-content: center; align-items: center; height: 100vh;'>Hello World</span>";
     }
 }

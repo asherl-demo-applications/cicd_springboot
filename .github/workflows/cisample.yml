@@ -31,4 +31,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: asherlab/cicd-armory:latest
+          tags: asherlab/cicd-armory:pink
