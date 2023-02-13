@@ -1,4 +1,4 @@
-name: CI/CD for Spring Boot application
+name: CI/CD for Spring Boot
 
 on:
   push:
@@ -13,37 +13,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK
-        uses: actions/setup-java@v1
+      - name: Build project with Maven
+        uses: docker://maven:3.6.3-jdk-17
         with:
-          java-version: 17
+          args: mvn clean verify
 
-      - name: Build application
-        run: mvn clean package
+      - name: Test result
+        id: test-result
+        run: echo "Test result = ${{ steps.test-result.outputs.test-result }}"
+        outputs:
+          test-result: ${{ job.status }}
 
-      - name: Deploy to test environment
-        uses: actions/upload-artifact@v1
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
+        if: steps.test-result.outputs.test-result == 'success'
         with:
-          name: application-${{ env.BUILD_NUMBER }}.jar
-          path: target/application.jar
+          push: true
+          tags: repository-name/image-name:${{ env.TAG_NAME }}
 
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v1
-        with:
-          name: application-${{ env.BUILD_NUMBER }}.jar
-
-      - name: Set up JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: 17
-
-      - name: Test application
-        run: mvn test
+      - name: Set image tag
+        run: echo "::set-env name=TAG_NAME::${{ env.TAG_NAME }}"
+        env:
+          TAG_NAME: ${{ env.GITHUB_SHA }}
