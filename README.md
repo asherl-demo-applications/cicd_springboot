@@ -1,6 +1,6 @@
 # CICD Demo using Github Actions and Armory CDaaS on K8s Cluster (Blue/Green Deployment) - Spring Boot Java App
 
-## Architecture
+## CICD Architecture
 
 ![Deployed App](/images/Architecture.PNG)
 
