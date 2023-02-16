@@ -29,7 +29,7 @@ targets:
 manifests:
   # This reads all YAML files in a dir
   # and deploys manifests in that dir to all targets.
-  - path: /armory/manifests/sample-app.yaml
+  - path: /armory/manifests/helloworldapp.yaml
 # The map of strategies, a deployment target will reference one of these
 strategies:
   # this is the name for the strategy
